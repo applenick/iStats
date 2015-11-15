@@ -1,0 +1,16 @@
+name: iStats
+main: com.applenick.iStats.IStats
+version: 1.0
+author: AppleNick
+description: Created by AppleNick to provide a simple yet easy way to view player pvp stats
+
+commands:
+   stats:
+      description: View stats for a player
+      usage: /<stats> [player]
+      permission: istats.view
+   reloadstats:
+      description: Reloads Player Stats from Disk
+      usage: /<reloadstats>
+      permission: istats.reload
+      
