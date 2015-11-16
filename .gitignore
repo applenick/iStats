@@ -1,0 +1,10 @@
+bin/pom.xml
+bin/README.md
+bin/src/main/java/com/applenick/iStats/IStats.class
+bin/src/main/java/com/applenick/iStats/listeners/PvPListener.class
+bin/src/main/java/com/applenick/iStats/listeners/StatsListener.class
+bin/src/main/java/com/applenick/iStats/stats/StatManager.class
+bin/src/main/java/com/applenick/iStats/stats/StatPlayer.class
+bin/src/main/resources/config.yml
+bin/src/main/resources/players.yml
+bin/src/main/resources/plugin.yml
