@@ -40,7 +40,9 @@ public class StatPlayer {
 	}
 	
 	public double getKDR(){
-		this.kdr = (kills / deaths);
+		if(deaths >= 1){
+			this.kdr = (kills / deaths);
+		}
 		return kdr;
 	}
 
