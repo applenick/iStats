@@ -194,7 +194,7 @@ public class IStats extends JavaPlugin {
 
 
 	private void sendStats(CommandSender sender , StatPlayer targetSP , Player targetP){
-		sender.sendMessage(ChatColor.RED + "" + ChatColor.STRIKETHROUGH + "=============" + ChatColor.RESET +   ChatColor.GREEN +  "" + ChatColor.BOLD + "i" + ChatColor.AQUA +  "" + ChatColor.BOLD + "Stats" + ChatColor.RED + "" + ChatColor.STRIKETHROUGH + "=============");
+		sender.sendMessage(ChatColor.RED + "" + ChatColor.STRIKETHROUGH + "=============" + ChatColor.RESET +   ChatColor.GREEN +  " " + ChatColor.BOLD + "i" + ChatColor.AQUA +  "" + ChatColor.BOLD + "Stats" + ChatColor.RED + " " + ChatColor.STRIKETHROUGH + "=============");
 		sender.sendMessage(ChatColor.GREEN + targetP.getDisplayName() + "'s " + ChatColor.GRAY  + ""  + "Current Stats");
 		sender.sendMessage(" ");
 		sender.sendMessage(ChatColor.RED + "Kills: " + ChatColor.GOLD + targetSP.getKills());

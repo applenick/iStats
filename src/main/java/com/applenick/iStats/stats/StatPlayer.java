@@ -143,7 +143,7 @@ public class StatPlayer {
 		miKS.addLoreLine(ChatColor.GRAY + "Highest Killstreak" + ChatColor.GOLD + " : " + ChatColor.BLUE.toString() + highest_killstreak);
 		
 		inv.setItem(miKills.getSlot(), miKills.getItem());
-		inv.setItem(miDeaths.getSlot(), miKills.getItem());
+		inv.setItem(miDeaths.getSlot(), miDeaths.getItem());
 		inv.setItem(miKDR.getSlot(), miKDR.getItem());
 		inv.setItem(miKS.getSlot(), miKS.getItem());
 	
