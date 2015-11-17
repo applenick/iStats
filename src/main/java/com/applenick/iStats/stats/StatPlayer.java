@@ -139,7 +139,7 @@ public class StatPlayer {
 		MenuItem miKills = new MenuItem(ChatColor.RED + "Kills" , ChatColor.GRAY + "Kills" + ChatColor.GOLD + " : " + ChatColor.RED.toString() + kills , 1 , Material.DIAMOND_SWORD , 1);
 		MenuItem miDeaths = new MenuItem(ChatColor.DARK_PURPLE + "Deaths" , ChatColor.GRAY + "Deaths" + ChatColor.GOLD + " : " + ChatColor.DARK_PURPLE.toString() + deaths , 1 , Material.BONE , 3);
 		MenuItem miKDR = new MenuItem(ChatColor.DARK_RED + "KDR" , ChatColor.GRAY + "KDR" + ChatColor.GOLD + " : " + ChatColor.DARK_RED.toString() + kdr , 1 , Material.TNT , 5);
-		MenuItem miKS = new MenuItem(ChatColor.AQUA + "Killstreak" , ChatColor.GRAY + "Killstreak" + ChatColor.GOLD + " : " + ChatColor.AQUA.toString() + current_killstreak , 1 , Material.PAPER , 7);
+		MenuItem miKS = new MenuItem(ChatColor.AQUA + "Killstreak" , ChatColor.GRAY + "Current Killstreak" + ChatColor.GOLD + " : " + ChatColor.AQUA.toString() + current_killstreak , 1 , Material.DIAMOND , 7);
 		miKS.addLoreLine(ChatColor.GRAY + "Highest Killstreak" + ChatColor.GOLD + " : " + ChatColor.BLUE.toString() + highest_killstreak);
 		
 		inv.setItem(miKills.getSlot(), miKills.getItem());
