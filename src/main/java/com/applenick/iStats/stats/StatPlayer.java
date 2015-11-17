@@ -1,11 +1,20 @@
 package com.applenick.iStats.stats;
 
-import net.md_5.bungee.api.ChatColor;
 
+import java.util.List;
+
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import com.applenick.iStats.IStats;
+import com.google.common.collect.Lists;
+
+import net.md_5.bungee.api.ChatColor;
 /************************************************
 		Created By AppleNick
 Copyright © 2015 , AppleNick, All rights reserved.
@@ -19,9 +28,10 @@ public class StatPlayer {
 	private double kdr;
 	private int current_killstreak;
 	private int highest_killstreak;
+	private boolean gui;
 	
 	
-	public StatPlayer(Player player , int kills, int deaths, int highest_killstreak){
+	public StatPlayer(Player player , int kills, int deaths, int highest_killstreak , boolean gui){
 		this.player = player;
 		this.kills = kills;
 		this.deaths = deaths;
@@ -32,6 +42,7 @@ public class StatPlayer {
 		}
 		this.highest_killstreak = highest_killstreak;
 		this.current_killstreak = 0;
+		this.gui = gui;
 	}
 
 
@@ -112,11 +123,81 @@ public class StatPlayer {
 		this.deaths = (deaths + 1);
 	}
 	
+	//GUI
+	
+	public boolean hasSetGUI(){
+		return gui;
+	}
+	
+	public void setGUI(boolean gui){
+		this.gui = gui;
+	}
+	
+	public void displayGUI(Player sender){
+		Inventory inv = IStats.get().getServer().createInventory(null, 9, ChatColor.GREEN + player.getDisplayName() + "'s" + ChatColor.AQUA + " Stats");
+	
+		MenuItem miKills = new MenuItem(ChatColor.RED + "Kills" , ChatColor.GRAY + "Kills" + ChatColor.GOLD + " : " + ChatColor.RED.toString() + kills , 1 , Material.DIAMOND_SWORD , 1);
+		MenuItem miDeaths = new MenuItem(ChatColor.DARK_PURPLE + "Deaths" , ChatColor.GRAY + "Deaths" + ChatColor.GOLD + " : " + ChatColor.DARK_PURPLE.toString() + deaths , 1 , Material.BONE , 3);
+		MenuItem miKDR = new MenuItem(ChatColor.DARK_RED + "KDR" , ChatColor.GRAY + "KDR" + ChatColor.GOLD + " : " + ChatColor.DARK_RED.toString() + kdr , 1 , Material.TNT , 5);
+		MenuItem miKS = new MenuItem(ChatColor.AQUA + "Killstreak" , ChatColor.GRAY + "Killstreak" + ChatColor.GOLD + " : " + ChatColor.AQUA.toString() + current_killstreak , 1 , Material.PAPER , 7);
+		miKS.addLoreLine(ChatColor.GRAY + "Highest Killstreak" + ChatColor.GOLD + " : " + ChatColor.BLUE.toString() + highest_killstreak);
+		
+		inv.setItem(miKills.getSlot(), miKills.getItem());
+		inv.setItem(miDeaths.getSlot(), miKills.getItem());
+		inv.setItem(miKDR.getSlot(), miKDR.getItem());
+		inv.setItem(miKS.getSlot(), miKS.getItem());
+	
+		
+		sender.openInventory(inv);
+		IStats.getStats().addViewer(sender);
+		return;
+	}
+	
+	public static class MenuItem{
+		
+		private String name;
+		//private String subString;
+		private List<String> loreS;
+		private int amount; 
+		private Material material;
+		private int slot;
+		
+		public MenuItem(String name, String subString, int amount, Material material , int slot){
+			this.name = name;
+			this.loreS = Lists.newArrayList();
+			this.loreS.add(subString);
+			this.amount = amount;
+			this.material = material;
+			this.slot = slot;
+		}
+		
+		public int getSlot(){
+			return slot;
+		}
+		
+		public void addLoreLine(String lore){
+			this.loreS.add(lore);
+		}
+		
+		public ItemStack getItem(){
+			ItemStack item = new ItemStack(material);
+			ItemMeta meta = item.getItemMeta();
+			meta.setDisplayName(name);
+			meta.setLore(loreS);
+			meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+			item.setItemMeta(meta);
+			item.setAmount(amount);
+			return item;
+		}
+		
+	}
+	
 	public void save(){
 		ConfigurationSection config = IStats.get().getPlayerConfig().getConfigurationSection(player.getUniqueId().toString());
 		config.set("kills", kills);
 		config.set("deaths", deaths);
 		config.set("killstreak", highest_killstreak);
+		config.set("gui" , gui);
 		IStats.get().savePlayerConfig();
 	}
 }
