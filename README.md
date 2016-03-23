@@ -9,6 +9,3 @@ permission: istats.view
 
 /reloadstats - Reload Stats from Config
 permission: istats.reload
-
-/gui - Toggles GUI
-permission: istats.toggle

@@ -1,10 +1,4 @@
 #iStats created by AppleNick
 
-#You can define as many Command Aliases here as you want.
-command-aliases:
-  - istats
-  - statcommand
-  - stats
-
 #Display debug messages in console
 debug: false
