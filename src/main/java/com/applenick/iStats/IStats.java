@@ -2,6 +2,7 @@ package com.applenick.iStats;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -17,6 +18,7 @@ import com.applenick.iStats.listeners.PvPListener;
 import com.applenick.iStats.listeners.StatsListener;
 import com.applenick.iStats.stats.StatManager;
 import com.applenick.iStats.stats.StatPlayer;
+import com.google.common.collect.Lists;
 /************************************************
 		Created By AppleNick
 Copyright © 2015 , AppleNick, All rights reserved.
@@ -27,6 +29,8 @@ public class IStats extends JavaPlugin {
 	public String PREFIX = ChatColor.GRAY + "[" + ChatColor.GREEN + "i" + ChatColor.AQUA + "Stats" + ChatColor.GRAY + "] ";
 
 	private static boolean DEV = false;
+	
+	private List<String> command_aliases;
 
 	public static boolean isDev(){
 		return DEV;
@@ -85,6 +89,21 @@ public class IStats extends JavaPlugin {
 		}
 
 		manager = new StatManager();
+		
+		this.command_aliases = Lists.newArrayList();
+		if(this.getConfig().contains("command-aliases")){
+			for(String s : this.getConfig().getStringList("command-aliases")){
+				this.command_aliases.add(s);
+			}
+		}
+		
+		if(this.command_aliases.size() == 0){
+			this.command_aliases.add("istats");
+			this.command_aliases.add("stats");
+		}
+		
+		console(ChatColor.GREEN + "Found " + this.command_aliases.size() + " command aliases");
+		
 		this.register();
 		console(ChatColor.GREEN + "iStats "  + ChatColor.GRAY + "-" + ChatColor.DARK_RED + " Created by AppleNick " + ChatColor.GRAY + "-"  + ChatColor.GREEN +" Is Now Enabled.");
 	}
@@ -110,7 +129,7 @@ public class IStats extends JavaPlugin {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("stats")) { 
+		if (isCommand(cmd.getName())) { 
 			if(args.length == 0){
 				if(sender instanceof Player){
 					Player player = (Player) sender;
@@ -190,6 +209,15 @@ public class IStats extends JavaPlugin {
 		}
 
 		return false; 
+	}
+	
+	public boolean isCommand(String input){
+		for(String s : this.command_aliases){
+			if(input.equalsIgnoreCase(s)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 
